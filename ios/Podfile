@@ -38,6 +38,14 @@ target 'frontend' do
 
   # Other native modules
 
+  # add the Firebase pod for Google Analytics
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Performance'
+  pod 'Crashlytics', '~> 3.14.0'
+
+  # add pods for any other desired Firebase products
+  # https://firebase.google.com/docs/ios/setup#available-pods
+
   # Automatically detect installed unimodules
   use_unimodules!
 
