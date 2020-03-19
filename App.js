@@ -11,17 +11,21 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import AppNavigator from "./navigation/AppNavigator";
 
+import { DarkModeProvider } from "react-native-dark-mode";
+
 export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <SafeAreaProvider>
-          <NavigationContainer>
-            <View style={{ flex: 1 }}>
-              <AppNavigator />
-            </View>
-          </NavigationContainer>
-        </SafeAreaProvider>
+        <DarkModeProvider>
+          <SafeAreaProvider>
+            <NavigationContainer>
+              <View style={{ flex: 1 }}>
+                <AppNavigator />
+              </View>
+            </NavigationContainer>
+          </SafeAreaProvider>
+        </DarkModeProvider>
       </Provider>
     );
   }

@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     backgroundColor: theme.colors.white,
-    height: 200,
+    height: 150,
     padding: 10
   },
   notificationContent: {
@@ -88,10 +88,10 @@ const styles = StyleSheet.create({
     color: theme.colors.darkOrange,
     marginRight: 5,
     fontSize: 25,
-    marginBottom: 2
+    marginBottom: theme.sizes.base
   },
   errorMessage: {
-    flexDirection: "row",
+    flexDirection: "column",
     flex: 1,
     marginBottom: 2,
     fontSize: 20
@@ -99,7 +99,8 @@ const styles = StyleSheet.create({
   errorMessageContainer: {
     flexDirection: "row",
     flex: 1,
-    marginBottom: 2
+    marginBottom: 2,
+    width: 700
   },
   closeButton: {
     position: "absolute",

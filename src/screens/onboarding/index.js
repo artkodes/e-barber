@@ -5,12 +5,10 @@ import {
   Image,
   Alert,
   TouchableHighlight,
-  ScrollView,
-  AsyncStorage
+  ScrollView
 } from "react-native";
 
 import { useFocusEffect } from "@react-navigation/native";
-import { useSelector, useDispatch } from "react-redux";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import RoundedButton from "../../components/buttons/RoundedButton";
@@ -21,7 +19,18 @@ import * as theme from "../../constants/themes";
 import transparentHeaderStyle from "../../utils/HeaderStyle";
 import { Ionicons } from "@expo/vector-icons";
 import NavBarButton from "../../components/buttons/NavBarButton";
-import styles from "../styles/LoggedOut";
+
+import dynamicStyles from "../styles/LoggedOut";
+
+import {
+  useDynamicStyleSheet,
+  useDarkModeContext
+} from "react-native-dark-mode";
+
+const darkModeColors = {
+  light: theme.colors.black,
+  dark: theme.colors.white
+};
 
 const Index = ({ navigation }) => {
   React.useLayoutEffect(() => {
@@ -30,7 +39,7 @@ const Index = ({ navigation }) => {
         <NavBarButton
           handleButtonPress={() => navigation.navigate("LoginScreen")}
           location='right'
-          color={theme.colors.black}
+          color={darkModeColor}
           text='Login'
         />
       ),
@@ -40,6 +49,7 @@ const Index = ({ navigation }) => {
     });
   }, [navigation]);
 
+  // do something when screen is focused or unfocused
   useFocusEffect(
     React.useCallback(() => {
       // Do something when the screen is focused
@@ -52,7 +62,10 @@ const Index = ({ navigation }) => {
     }, [])
   );
 
-  const dispatch = useDispatch();
+  //dark mode
+  const styles = useDynamicStyleSheet(dynamicStyles);
+  const mode = useDarkModeContext();
+  const darkModeColor = darkModeColors[mode];
 
   return (
     <ScrollView style={styles.wrapper}>
@@ -60,9 +73,9 @@ const Index = ({ navigation }) => {
         <Text style={styles.welcomeText}>Welcome.</Text>
         <RoundedButton
           text='Continue with Facebook'
-          textColor={theme.colors.green01}
+          textColor={darkModeColor}
           background='transparent'
-          borderColor={theme.colors.black}
+          borderColor={darkModeColor}
           handleOnPress={() => {
             navigation.navigate("Home");
           }}
@@ -70,8 +83,8 @@ const Index = ({ navigation }) => {
 
         <RoundedButton
           text='Create Account'
-          textColor={theme.colors.black}
-          borderColor={theme.colors.black}
+          textColor={darkModeColor}
+          borderColor={darkModeColor}
           handleOnPress={() => {
             navigation.navigate("CreateAccount");
           }}

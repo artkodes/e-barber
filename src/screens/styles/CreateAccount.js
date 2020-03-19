@@ -1,7 +1,7 @@
-import { StyleSheet } from "react-native";
+import { DynamicStyleSheet, DynamicValue } from "react-native-dark-mode";
 import * as theme from "../../constants/themes";
 
-const styles = StyleSheet.create({
+const dynamicStyle = new DynamicStyleSheet({
   wrapper: {
     display: "flex",
     flex: 1
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 30,
     fontWeight: "300",
-    color: theme.colors.black,
+    color: new DynamicValue(theme.colors.black, theme.colors.white),
     paddingLeft: 20,
     paddingRight: 20,
     marginTop: 10,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   privacyHeading: {
     fontSize: 16,
     fontWeight: "200",
-    color: theme.colors.lightBlack,
+    color: new DynamicValue(theme.colors.black, theme.colors.white),
     marginBottom: 5,
     paddingLeft: 20,
     paddingRight: 20,
@@ -47,12 +47,12 @@ const styles = StyleSheet.create({
   privacyOptionTitle: {
     fontSize: 16,
     fontWeight: "400",
-    color: theme.colors.lightBlack
+    color: new DynamicValue(theme.colors.black, theme.colors.white)
   },
   privacyOptionDescription: {
     fontSize: 14,
     fontWeight: "200",
-    color: theme.colors.lightBlack,
+    color: new DynamicValue(theme.colors.black, theme.colors.white),
     marginTop: 10,
     paddingRight: 90
   },
@@ -88,4 +88,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default styles;
+export default dynamicStyle;

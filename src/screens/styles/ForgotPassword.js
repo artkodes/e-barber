@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { DynamicStyleSheet, DynamicValue } from "react-native-dark-mode";
 import iPhoneSize from "../../helpers/utils";
 
 import * as theme from "../../constants/themes";
@@ -8,7 +8,7 @@ if (iPhoneSize() === "small") {
   headingTextSize = 26;
 }
 
-const styles = StyleSheet.create({
+const dynamicStyle = new DynamicStyleSheet({
   wrapper: {
     display: "flex",
     flex: 1
@@ -30,13 +30,13 @@ const styles = StyleSheet.create({
   },
   forgotPasswordHeading: {
     fontSize: headingTextSize,
-    color: theme.colors.black,
+    color: new DynamicValue(theme.colors.black, theme.colors.white),
     fontWeight: "300",
     marginBottom: 10,
     textTransform: "uppercase"
   },
   forgotPasswordSubheading: {
-    color: theme.colors.black,
+    color: new DynamicValue(theme.colors.black, theme.colors.white),
     fontWeight: "600",
     fontSize: 15,
     marginTop: 10,
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default styles;
+export default dynamicStyle;

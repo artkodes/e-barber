@@ -2,6 +2,8 @@ import { StyleSheet } from "react-native";
 import iPhoneSize from "../../helpers/utils";
 import * as theme from "../../constants/themes";
 
+import { DynamicStyleSheet, DynamicValue } from "react-native-dark-mode";
+
 let termsTextSize = 13;
 let headingTextSize = 30;
 if (iPhoneSize() === "small") {
@@ -9,11 +11,11 @@ if (iPhoneSize() === "small") {
   headingTextSize = 26;
 }
 
-const styles = StyleSheet.create({
+const dynamicStyles = new DynamicStyleSheet({
   wrapper: {
     flex: 1,
     display: "flex",
-    backgroundColor: theme.colors.white
+    backgroundColor: new DynamicValue(theme.colors.white, "black")
   },
   welcomeWrapper: {
     flex: 1,
@@ -33,12 +35,12 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontSize: headingTextSize,
-    color: theme.colors.black,
+    color: new DynamicValue(theme.colors.black, theme.colors.white),
     fontWeight: "300",
     marginBottom: 40
   },
   facebookButtonIcon: {
-    color: theme.colors.black,
+    color: new DynamicValue(theme.colors.black, theme.colors.white),
     position: "relative",
     left: 20,
     zIndex: 8
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   moreOptionsButtonText: {
-    color: theme.colors.black,
+    color: new DynamicValue(theme.colors.black, theme.colors.white),
     fontSize: 16
   },
   termsAndConditions: {
@@ -57,14 +59,14 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   termsText: {
-    color: theme.colors.black,
+    color: new DynamicValue(theme.colors.black, theme.colors.white),
     fontSize: termsTextSize,
     fontWeight: "600"
   },
   linkButton: {
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.black
+    borderBottomColor: new DynamicValue(theme.colors.black, theme.colors.white)
   }
 });
 
-export default styles;
+export default dynamicStyles;

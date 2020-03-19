@@ -7,12 +7,17 @@ import {
   Alert
 } from "react-native";
 
+import {
+  useDynamicStyleSheet,
+  useDarkModeContext
+} from "react-native-dark-mode";
+
 //components
 import InputField from "../../components/form/InputField";
 import Notification from "../../components/Notification";
 import NextArrowButton from "../../components/buttons/NextArrowButton";
 import Loader from "../../components/Loader";
-import styles from "../styles/ForgotPassword";
+import dynamicStyles from "../styles/ForgotPassword";
 
 import * as theme from "../../constants/themes";
 
@@ -23,6 +28,16 @@ import NavBarButton from "../../components/buttons/NavBarButton";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
+const darkModeColors = {
+  light: theme.colors.black4,
+  dark: theme.colors.white
+};
+
+const backgroundColors = {
+  light: theme.colors.white,
+  dark: theme.colors.black4
+};
+
 export default function ForgotPassword({ navigation }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -31,7 +46,11 @@ export default function ForgotPassword({ navigation }) {
           handleButtonPress={() => navigation.goBack()}
           location='left'
           icon={
-            <Ionicons name='ios-arrow-round-back' size={32} color='black' />
+            <Ionicons
+              name='ios-arrow-round-back'
+              size={32}
+              color={darkModeColor}
+            />
           }
         />
       ),
@@ -51,8 +70,14 @@ export default function ForgotPassword({ navigation }) {
     at: ""
   });
 
+  //dark mode
+  const styles = useDynamicStyleSheet(dynamicStyles);
+  const mode = useDarkModeContext();
+  const darkModeColor = darkModeColors[mode];
+  const backgroundColor = backgroundColors[mode];
+
   const { isLoading, isValidForm, isValidEmail } = state;
-  const background = isValidForm ? theme.colors.white : theme.colors.darkOrange;
+  const background = isValidForm ? backgroundColor : theme.colors.darkOrange;
   const showNotification = !isValidForm;
   const isEmailSend = state.isEmailSend;
 
