@@ -40,7 +40,8 @@ const colors = {
   gray06: "#ebebeb",
   gray07: "#f2f2f2",
   brown01: "#ad8763",
-  brown02: "#7d4918"
+  brown02: "#7d4918",
+  grayScale: "#1E1E1E"
 };
 
 const sizes = {

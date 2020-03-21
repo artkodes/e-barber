@@ -4,6 +4,9 @@ import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-community/async-storage";
 
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import { View, Text } from "react-native";
 //header style
 import transparentHeaderStyle from "../src/utils/HeaderStyle";
@@ -16,11 +19,70 @@ import OnBoarding from "../src/screens/onboarding";
 import CreateAccountScreen from "../src/screens/authentication/CreateAccount";
 import LoginScreen from "../src/screens/authentication/Login";
 import ForgotPasswordScreen from "../src/screens/authentication/ForgotPassword";
+import Explore from "../src/screens/home/Explore";
+import AnimatedView from "../src/screens/explore/AnimatedViews";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
 
-const Stack = createStackNavigator();
+import { Ionicons } from "@expo/vector-icons";
+
+const AuthStack = createStackNavigator();
+const ExploreStack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function AuthStackScreen() {
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen
+        name='OnBoarding'
+        component={OnBoarding}
+        options={{
+          title: null
+        }}
+      />
+      <AuthStack.Screen
+        name='LoginScreen'
+        component={LoginScreen}
+        options={{
+          title: null
+          // When logging out, a pop animation feels intuitive
+          // You can remove this if you want the default 'push' animation
+        }}
+      />
+      <AuthStack.Screen
+        name='CreateAccount'
+        component={CreateAccountScreen}
+        options={{
+          title: null
+        }}
+      />
+      <AuthStack.Screen
+        name='ForgotPassword'
+        component={ForgotPasswordScreen}
+        options={{
+          title: null
+        }}
+      />
+    </AuthStack.Navigator>
+  );
+}
+
+function ExploreStackScreen() {
+  return (
+    <ExploreStack.Navigator>
+      <ExploreStack.Screen
+        name='Explore'
+        component={Explore}
+        options={{
+          headerStyle: transparentHeaderStyle,
+          headerTransparent: true,
+          title: null
+        }}
+      />
+    </ExploreStack.Navigator>
+  );
+}
 
 function AppNavigator({ navigation }) {
   const auth = useSelector(state => state.auth);
@@ -53,55 +115,29 @@ function AppNavigator({ navigation }) {
   }
 
   return (
-    <Stack.Navigator>
+    <>
       {auth.userToken == null ? (
         // No token found, user isn't signed in
-        <>
-          <Stack.Screen
-            name='OnBoarding'
-            component={OnBoarding}
-            options={{
-              title: null
-            }}
-          />
-          <Stack.Screen
-            name='LoginScreen'
-            component={LoginScreen}
-            options={{
-              title: null,
-              // When logging out, a pop animation feels intuitive
-              // You can remove this if you want the default 'push' animation
-              animationTypeForReplace: auth.isSignout ? "pop" : "push"
-            }}
-          />
-          <Stack.Screen
-            name='CreateAccount'
-            component={CreateAccountScreen}
-            options={{
-              title: null
-            }}
-          />
-          <Stack.Screen
-            name='ForgotPassword'
-            component={ForgotPasswordScreen}
-            options={{
-              title: null
-            }}
-          />
-        </>
+        <AuthStackScreen />
       ) : (
         // User is signed in
-        <Stack.Screen
-          name='OnBoarding'
-          component={OnBoarding}
-          options={{
-            headerStyle: transparentHeaderStyle,
-            headerTransparent: true,
-            title: null
-          }}
-        />
+
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+              if (route.name === "Explore") {
+                iconName = "ios-search";
+              }
+
+              return <Ionicons name={iconName} size={size} color={color} />;
+            }
+          })}
+        >
+          <Tab.Screen name='Explore' component={ExploreStackScreen} />
+        </Tab.Navigator>
       )}
-    </Stack.Navigator>
+    </>
   );
 }
 

@@ -106,7 +106,7 @@ function Login({ navigation }) {
         ] = `Bearer ${res.data.token}`;
         _store_data();
         userdata = res.data.userData;
-        navigation.navigate("OnBoarding");
+        navigation.navigate("Explore");
       })
       .catch(function(error) {
         setState({
